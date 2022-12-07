@@ -2,9 +2,6 @@
 
 This project demonstrates how to create and deploy a AWS Lambda function that uses OpenAI's GPT-3 model.
 
-> **Note**<br />
-> This code is currently set to run locally via `python3 lambda_function.py`, but by simply uncommenting the header and footer blocks and indenting the code, it will be ready to run a a lambda on AWS.
-
 ## Setup
 
 ### Prerequisites
@@ -16,6 +13,12 @@ Before you can set up the development environment for this project, you need to 
 - virtualenv 20.0 or later
 
 ### Setting up the environment
+
+0. Create a `.env` file to store your OpenAI API key. It should look like this:
+
+```
+API_KEY = "YOUR_OPENAI_API_KEY_HERE"
+```
 
 To set up the development environment for this project, follow these steps:
 
@@ -34,7 +37,7 @@ source .venvs/gpt-dev/bin/activate
 3. Install the required dependencies:
 
 ```
-pip install -r requirements.txt
+pip install -r requirements.txt -t package
 ```
 
 4. Use the gpt-dev virtual environment for running and developing the project's Python code.
@@ -98,6 +101,27 @@ zip gpt-lambda-package.zip lambda_function.py
 ```
 
 Then redeploy the updated package to AWS using the `aws lambda update-function-code` command.
+
+## Running Locally
+
+Install python-lambda-local to run serverless functions locally:
+
+```
+pip install python-dotenv -t package
+pip install python-lambda-local
+```
+
+Run the function (with a given event), via the following:
+
+```
+python-lambda-local -f lambda_handler lambda_function.py event.json
+```
+
+## Misc
+
+[AWS CLI and SAM CLI installation instructions](https://aws.amazon.com/blogs/compute/jump-starting-your-serverless-development-environment/)
+
+[AWS SAM CLI w/ Podman installation instructions](https://www.reddit.com/r/podman/comments/r6ybkw/aws_sam_and_podman/)
 
 ## License
 
